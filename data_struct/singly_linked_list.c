@@ -9,6 +9,7 @@ typedef enum state{
 	choosing = 1,
 	inserting,
 	searching,
+	over,
 }state;
 
 typedef struct List{
@@ -16,7 +17,7 @@ typedef struct List{
 	struct List* next;
 }lst;
 
-lst* init_List(void){
+lst* init_list(void){
 	lst* L = (lst* )malloc(sizeof(lst));
 	if(L == NULL) printf("initialization failed!\n");
 	L->next = NULL;
@@ -82,6 +83,7 @@ void createlst_head(lst* L, int n){
 		if(p == NULL){
 			printf("node creation failed!\n");
 		}
+		printf("put in elem of node%d: ", i);
 		scanf("%d", &p->elem);
 		p->next = L->next;
 		L->next = p;
@@ -97,10 +99,23 @@ void createlst_rear(lst* L, int n){
 		if(p == NULL){
 			printf("node creation failed!\n");
 		}
+		printf("put in elem of node%d: ", i);
 		scanf("%d", &p->elem);
 		r->next = p;
 		p->next = NULL;
 		r = p;
 	}
 }//后插法
-	
+
+void list_delete(lst* L, int elem){
+	lst* p = L;
+	lst* prev = NULL;
+	while(p != NULL){
+		prev = p;
+		p = p->next;
+		if(p->elem == elem){
+			prev->next = p->next;
+			free(p);
+		}
+	}
+}
