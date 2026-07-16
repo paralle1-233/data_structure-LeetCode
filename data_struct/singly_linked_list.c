@@ -6,9 +6,11 @@ typedef enum status{
 }status;
 
 typedef enum state{
-	choosing = 1,
-	inserting,
+	inserting = 1,
+	locating,
 	searching,
+	deleting,
+	traversing,
 	over,
 }state;
 
@@ -30,11 +32,15 @@ int get_data(lst L, int i, int e){
 	int j = 1;
 	while(p->next && j <= i){
 		p = p->next;
-		j++;
+		printf("%d", j);
+		++j;
 	}
-	if(!p || j > i) return -1;
-	else e = p->elem;
-	return e;
+	if(!p || --j > i){
+		return -1;
+	}else{
+		e = p->elem;
+		return e;
+	}
 }//取值
 
 lst* locate_list(lst L, int e){
@@ -117,5 +123,15 @@ void list_delete(lst* L, int elem){
 			prev->next = p->next;
 			free(p);
 		}
+	}
+}//删除元素值为elem的节点
+
+void traverse_list(lst* L){
+	lst* p = L;
+	int i = 1;
+	while(p->next){
+		printf("elem of node%d: %d ", i, p->elem);
+		p = p->next;
+		i++;
 	}
 }

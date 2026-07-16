@@ -5,9 +5,11 @@ typedef enum status{
 	ERROR,
 }status;
 typedef enum state{
-	choosing = 1,
-	inserting,
-	sreaching,
+	inserting = 1,
+	locating,
+	searching,
+	deleting,
+	traversing,
 	over,
 }state;
 typedef struct List{
@@ -21,4 +23,6 @@ status insert(lst* L, int i, int elem);
 void createlst_head(lst* L, int n);
 void createlst_rear(lst* L, int n);
 void list_delete(lst* L, int elem);
+void traverse_list(lst* L);
 #endif
+
