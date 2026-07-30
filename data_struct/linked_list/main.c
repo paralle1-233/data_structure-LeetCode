@@ -59,10 +59,11 @@ int main(void){
 	printf("List setup OK!\n");
 		
 	while(state != 6){
-		printf("next option\n[1]insert\n[2]locate\n[3]search\n[4]delete\n[5]traverse\n[6]leave\n: ");
+		printf("next option:\n[1]insert    [2]locate\n[3]search    [4]delete\n[5]traverse  [6]leave\n: ");
 		scanf("%d", &state);
 		state_machine(state, L);
 	}
+    free(L);
 	return 0;
 }
 

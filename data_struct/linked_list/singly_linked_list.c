@@ -32,7 +32,6 @@ int get_data(lst L, int i, int e){
 	int j = 1;
 	while(p->next && j <= i){
 		p = p->next;
-		printf("%d", j);
 		++j;
 	}
 	if(!p || --j > i){
@@ -65,7 +64,7 @@ status insert(lst* L, int i, int elem){
 		lst* s = NULL;
 		s = (lst* )malloc(sizeof(lst));
 		if(s == NULL){
-		       	printf("failed to create node!");
+		    printf("failed to create node!");
 		}
 		s->elem = elem;
 		p->next = s;
@@ -74,6 +73,7 @@ status insert(lst* L, int i, int elem){
 		return ERROR;
 	}else{
 		lst* s = NULL;
+        s = (lst* )malloc(sizeof(lst));
 		s->next = p->next;
 		p->next = s;
 		s->elem = elem;
@@ -115,22 +115,25 @@ void createlst_rear(lst* L, int n){
 
 void list_delete(lst* L, int elem){
 	lst* p = L;
-	lst* prev = NULL;
-	while(p != NULL){
-		prev = p;
-		p = p->next;
-		if(p->elem == elem){
-			prev->next = p->next;
-			free(p);
-		}
-	}
+    if(p->next->elem == elem){
+        lst* temp = p;
+        p->next = p->next->next;
+        free(temp);
+    }else{
+        while(p->next->next && p->next->elem != elem){
+            p = p->next;
+        }
+        lst* temp = p->next;
+        p->next = temp->next;
+        free(temp);
+    }
 }//删除元素值为elem的节点
 
 void traverse_list(lst* L){
-	lst* p = L;
+	lst* p = L->next;
 	int i = 1;
-	while(p->next){
-		printf("elem of node%d: %d ", i, p->elem);
+	while(p){
+		printf("elem of node%d: %d \n", i, p->elem);
 		p = p->next;
 		i++;
 	}
