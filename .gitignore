@@ -1,1 +1,3 @@
+# exclude those aren't .c files
+!*.c
 *.o
